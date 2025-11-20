@@ -38,8 +38,9 @@ COPY . .
 # 7. Compila el módulo Cython/C++ DENTRO del contenedor
 RUN python setup.py build_ext --inplace
 
-# 8. Expone el puerto
-EXPOSE 5000
+# Expone el puerto 8080 (Cloud Run lo requiere)
+EXPOSE 8080
 
-# 9. Comando de ejecución: FORMA SHELL ROBUSTA (Evita errores de sintaxis)
-CMD gunicorn -w 1 -b 0.0.0.0:5000 --timeout 300 app:app
+# Comando para iniciar el servidor Gunicorn.
+# Importante: Gunicorn DEBE escuchar en 0.0.0.0:8080, NO 5000.
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]
