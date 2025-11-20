@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Removedor de Fondo Web (Local)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Removedor de Fondo 1.2 ✨</h1>
+        <p>Presiona el boton cargar imagen para comenzar, luego selecciona la imagen que quiere procesar</p>
+        
+        <form id="upload-form" method="post" enctype="multipart/form-data" action="/upload">
+            
+            <input type="file" name="file" id="file-input" accept="image/*" required style="display: none;">
+            
+            <label for="file-input" class="custom-file-upload" id="select-button">
+                Cargar Imagen
+            </label>
+
+            <div id="file-name-display"></div>
+            
+            <button type="submit" id="submit-button" disabled>
+                Quitar Fondo...
+            </button>
+        </form>
+
+        <div id="status-message" style="display: none;">Procesando, por favor espere...</div>
+        
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <footer>Raul Rangel</footer>
+
+</body>
+</html>

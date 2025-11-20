@@ -1,0 +1,108 @@
+body {
+    font-family: Arial, sans-serif;
+    /* CAMBIO: Fondo índigo oscuro */
+    background-color: #5c2581;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: #f4f7f6; /* Color de texto blanco roto para buen contraste */
+}
+
+.container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* --- ESTILOS PARA EL BOTÓN DE SELECCIÓN DE IMAGEN (LABEL) --- */
+.custom-file-upload {
+    background-color: #15c908; /* Gris para selección */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    display: block; 
+    width: 90%;
+    text-align: center;
+    margin-bottom: 15px; 
+}
+
+.custom-file-upload:hover {
+    background-color: #5a6268;
+}
+
+#file-name-display {
+    margin-bottom: 15px;
+    color: #007bff;
+    font-style: italic;
+    min-height: 20px; /* Asegura un espacio incluso si no hay archivo */
+}
+
+/* --- ESTILOS PARA EL BOTÓN DE ENVÍO (QUITAR FONDO) --- */
+#submit-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+/* Estado del botón de ENVÍO cuando está deshabilitado */
+#submit-button:disabled {
+    background-color: #ccc; /* Gris claro */
+    cursor: not-allowed;
+}
+
+#submit-button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+#status-message {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #ffeaa7;
+    color: #333;
+    font-weight: bold;
+}
+
+/* static/style.css - Footer Signature Styles */
+
+footer {
+    /* Posicionamiento: Fija el elemento en relación con la ventana (viewport) */
+    position: fixed;
+    bottom: 0; /* Lo ancla a la parte inferior de la pantalla */
+    left: 0;
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    
+    /* Estilo: Transparencia y texto sutil */
+    background-color: rgba(0, 0, 0, 0.2); /* Fondo ligeramente oscuro y transparente */
+    color: #bdc3c7; /* Texto gris claro para que sea sutil */
+    text-align: center;
+    padding: 8px 0;
+    font-size: 0.8em;
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}

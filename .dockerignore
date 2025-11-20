@@ -1,0 +1,24 @@
+# Ignorar el entorno virtual local de Windows
+venv/
+.venv/
+
+# Ignorar cachés de Python
+__pycache__/
+*.pyc
+
+# Ignorar cachés de compilación y VSCode
+.vscode/
+build/
+dist/
+*.egg-info/
+
+# Ignorar cachés locales de modelos de IA
+.u2net/
+.rembg/
+
+# Ignorar archivos compilados de Windows
+*.pyd
+
+# Ignorar archivos temporales
+temp_uploads/
+temp_processed/ 
