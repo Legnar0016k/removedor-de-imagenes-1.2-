@@ -4,16 +4,17 @@ import tempfile
 from flask import Flask, request, send_file, render_template_string
 from rembg import remove, new_session
 from PIL import Image
+from flask_cors import CORS # Importante: Importamos la extensión CORS
 
 # Configuración de la aplicación Flask
 app = Flask(__name__)
+CORS(app) # Aplicamos CORS a la aplicación para permitir llamadas desde el frontend
 
-# --- INICIALIZACIÓN DE LA IA (El cambio clave) ---
+# --- INICIALIZACIÓN DE LA IA (Modelo Pesado) ---
 # Usamos 'u2net' que es el modelo estándar y mucho más pesado.
-# Esto asegura que la RAM consumida al iniciar el contenedor esté en el rango de 1.5GB - 1.7GB.
 print("Inicializando la sesión de rembg con el modelo u2net (versión grande)...")
 try:
-    # Se inicializa la sesión una sola vez para que el modelo se cargue en memoria.
+    # El modelo se carga en memoria al inicio.
     REMBG_SESSION = new_session('u2net') 
     print("Modelo 'u2net' cargado exitosamente en memoria.")
 except Exception as e:
@@ -50,11 +51,9 @@ def index():
 @app.route("/remover", methods=["POST"])
 def remover_fondo():
     """
-    Ruta para procesar una imagen enviada por POST y remover el fondo usando rembg.
+    Ruta para procesar una imagen enviada por POST y remover el fondo.
     """
     if not REMBG_SESSION:
-        # Si la sesión no se cargó (por ejemplo, el modelo no se descargó o cargó), 
-        # devolvemos un error 503.
         return "Error interno del servidor: El modelo de IA no se pudo cargar.", 503
 
     if 'file' not in request.files:
@@ -71,7 +70,6 @@ def remover_fondo():
             input_image_data = file.read()
             
             # Usar el modelo pesado cargado en la sesión
-            # El parámetro session=REMBG_SESSION es clave para usar la versión pesada
             output_image_data = remove(input_image_data, session=REMBG_SESSION)
 
             # Preparar la imagen de salida (PNG con fondo transparente)
@@ -83,12 +81,9 @@ def remover_fondo():
             )
 
         except Exception as e:
-            # Captura cualquier error durante el procesamiento (por ejemplo, formato de imagen no válido)
             return f"Error al procesar la imagen: {str(e)}", 500
 
     return "Error desconocido al procesar la solicitud.", 500
 
 if __name__ == "__main__":
-    # Si se ejecuta localmente, Flask utilizará el puerto 8080.
-    # Cloud Run usa Gunicorn, por lo que esto solo aplica para pruebas locales.
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
